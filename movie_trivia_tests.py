@@ -17,10 +17,10 @@ class TestMovies(unittest.TestCase):
     def testinsert_actor_info(self):
         '''test utility function 1'''
         #insert into existing actor
-        self.assertFalse('The Americanization of Emily' in self.movieDb.values(), 'checking before')
+        #self.assertFalse('The Americanization of Emily' in self.movieDb.values(), 'checking before')
         insert_actor_info('Julie Andrews','The Americanization of Emily',self.movieDb)
         insert_actor_info('Julie Andrews','Hawaii',self.movieDb)
-        self.assertTrue('The Americanization of Emily' in self.movieDb.values(), 'The Americanization of Emily is not inserted')
+        self.assertTrue('The Americanization of Emily' in self.movieDb['Julie Andrews'], 'The Americanization of Emily is not inserted')
         #general test
         self.assertTrue('Hawaii' in self.movieDb['Julie Andrews'], 'Hawaii is not inserted')
          #insert into unknown actor
@@ -44,23 +44,33 @@ class TestMovies(unittest.TestCase):
     def testdelete_movie(self):
         '''test utility function 3'''
         delete_movie('The Avengers',self.movieDb,self.ratingDb)
-        self.assertFalse('The Avengers' in self.movieDb.values(), 'failt to delete The Avengers from movieDb')
+        #self.assertFalse('The Avengers' in self.movieDb.values(), 'failt to delete The Avengers from movieDb')
+        #assume know the database? then easy to test!else, write a loop to test? not reality
+        self.assertFalse('The Avengers' in self.movieDb['Jeremy Renner'], 'failt to delete The Avengers from movieDb')
         self.assertFalse('The Avengers' in self.ratingDb, 'failt to delete The Avengers from ratingDb')
 ##        assertIn(first, second, msg=None)
 ##        assertNotIn(first, second, msg=None)
     
     def testselect_where_actor_is(self):
         '''test utility function 4'''
-        actors=select_where_actor_is('Out of Africa',self.movieDb)
-        self.assertTrue('Meryl Streep' in actors, 'Meryl Streep is not in')
-        self.assertTrue('Robert Redford' in actors, 'Robert Redford is not in')
+        movies=select_where_actor_is('Meryl Streep',self.movieDb)
+        self.assertTrue('Out of Africa' in movies, 'Out of Africa is not in')
+        self.assertTrue('The Devil Wears Prada' in movies, 'Out of Africa is not in')
+        self.assertTrue('The Hours' in movies, 'Out of Africa is not in')
+        #Julie and Julia, Doubt, Out of Africa
+        #should list all?
+        self.assertFalse('Mamma Mia' in movies, 'Mamma Mia is in')
     
     def testselect_where_movie_is(self):
         '''test utility function 5'''
+        actors = select_where_movie_is('Amadeus', self.movieDb)
+        self.assertIn('F. Murray Abraham',actors,'test one actor')
+        #the test will fail, when use assertEqual?? only for value?
+        
         #write test code here using self.ratingDb and self.movieDb
         actors = select_where_movie_is('Mrs. Miniver', self.movieDb)
         #make some assertion about these actors
-        self.assertEqual(actors,'Walter Pidgeon','test one actor')
+        self.assertIn('Walter Pidgeon',actors,'test one actor')
         #test one actor
         actors = select_where_movie_is('Apollo 13', self.movieDb)
         #self.assertEqual(actors,['Tom Hanks','Kevin Bacon'],'test two actors')

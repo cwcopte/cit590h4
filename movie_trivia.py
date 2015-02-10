@@ -30,7 +30,9 @@ def create_ratings_DB(ratings_file):
 ##########
 
 def insert_actor_info(actor, movies, movie_Db):
-    movie_list = []
+    #movie_list = []
+    #typo
+    movies_list = []
     if actor in movie_Db:
         movies_list = movie_Db[actor]
     #movies_list.extend(movies)
@@ -46,7 +48,9 @@ def delete_movie(movie, movie_Db, ratings_Db):
     del ratings_Db[movie]
     movies_of_all_actors = movie_Db.values()
     for movies_list in movies_of_all_actors:
-        movies_list.remove(movie)
+        if movie in movies_list:
+            movies_list.remove(movie)
+        #problems here!!
 
 def select_where_actor_is(actorName, movie_Db):
     #return movie_Db(actorName)
@@ -57,6 +61,7 @@ def select_where_movie_is(movieName, movie_Db):
     for actor in all_actors_list[0:]:
         if movieName in movie_Db[actor]:
             actors_list.append(actor)
+            #the last item cannot be got, because the value missing in first movie_Db!!
     return actors_list
 
 def select_where_rating_is(targeted_rating, comparison, is_critic, ratings_Db):
@@ -65,13 +70,13 @@ def select_where_rating_is(targeted_rating, comparison, is_critic, ratings_Db):
     for movie in all_movies_list:
         rating_tuple = ratings_Db[movie]
         if is_critic == True:
-            rating = rating_tuple[0]
+            rating = int(rating_tuple[0])
         else:
-            rating = rating_tuple[1]
+            rating = int(rating_tuple[1])
         if comparison == '=':
             if rating == targeted_rating:
                 movies_with_target.append(movie)
-        if comparison == '<':
+        if comparison == '<': 
             if rating < targeted_rating:
                 movies_with_target.append(movie)
         if comparison == '>':
@@ -134,8 +139,20 @@ def main():
     print '\n'
     print actor_DB['Humphrey Bogart']
     print ratings_DB['Rambo']
-    name=select_where_movie_is('Mrs. Miniver', ratings_DB)
-    print name
+    #name=select_where_movie_is('Mrs. Miniver', ratings_DB)
+    #print name
+    print ratings_DB['The Avengers']
+    print 'The Avengers' in actor_DB.values()
+    print 'MASH' in actor_DB.values()[0]
+    #print 'The Avengers' in ratings_DB
+    print actor_DB.values()
+    print len(actor_DB)
+    print 'Walter Pidgeon' in actor_DB
+    
+    print len(ratings_DB)
+##    for movies_list in actor_DB.values():
+##        for movies_name in movies_list:
+##            print movies_name
     
 if __name__ == '__main__':
     main()
