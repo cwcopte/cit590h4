@@ -12,10 +12,10 @@ Gwyneth Paltrow, Shakespeare in Love, Bounce, Proof, Shallow Hal
 Russell Crowe, Gladiator, A Beautiful Mind, Cinderella Man, American Gangster, Les Miserables
 Sylvester Stallone, Rocky, Rambo, Assassins, Demolition Man, Cobra
 Johnny Depp, Edward Scissorhands, The Pirates of Caribbean, Finding Neverland, What's Eating Gilbert Grape
-Leonardo Di Caprio, What's Eating Gilbert Grape, Titanic, Blood Diamond, The Departed, Catch Me If You Can
+Leonardo Di Caprio, What's Eating Gilbert Grape, Titanic, Blood Diamond, The Departed, Catch Me If You Can, Revolutionary Road
 Antonio Banderas, The Mask of Zorro, Desperado, Frida, Original Sin
 Tom Cruise, Top Gun, Mission Impossible, Jerry Maguire, Few Good Men, Rain Man
-Kate Winslet, Titanic,  Finding Neverland, Eternal Sunshine of the Spotless Mind, The Reader, The Life of David Gale
+Kate Winslet, Titanic,  Finding Neverland, Eternal Sunshine of the Spotless Mind, The Reader, The Life of David Gale, Revolutionary Road 
 George Clooney, Oceans Eleven, Intolerable Cruelty, Syriana, From Dusk Till Dawn
 Matt Damon, Good Will Hunting, Bourne Identity, Bourne Ultimatum, The Departed, Invictus
 Ben Affleck, Bounce, Good Will Hunting, Pearl Harbor, Argo, Daredevil
@@ -50,7 +50,6 @@ Marlon Brando, The Godfather, Superman, Last Tango in Paris, On the Waterfront
 Al Pacino, Scent of a Woman, Dog Day Afternoon, The Godfather, The Godfather Part II, Scarface
 Gene Hackman, The French Connection, Superman, Unforgiven, Hoosiers
 Jack Nicholson, As Good As it Gets, Few Good Men, Departed, Terms of Endearment, One Flew Over the Cuckoo's nest
-Leonardo Di Caprio, Titanic, Blood Diamond, Departed
 Mark Wahlberg, Ted, Departed, Italian Job
 Clint Eastwood, Unforgiven, For a Few Dollars More, Dirty Harry, Escape From Alcatraz
 Jodie Foster, Silence of the Lambs, The Accused, Contact
