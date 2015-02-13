@@ -73,6 +73,9 @@ class TestMovies(unittest.TestCase):
         #test two actors, how to decide and check the order of that?
         self.assertIn('tom hanks', actors, 'test two actors')
         self.assertIn('kevin bacon', actors, 'test two actors')
+        #test if no movie in database
+        actors=select_where_movie_is('movieName', self.movieDb)
+        self.assertEqual(actors,['not present'],'test movie not in the movie DB')
         
     def testselect_where_rating_is(self):
         '''test utility function 6'''
@@ -97,7 +100,9 @@ class TestMovies(unittest.TestCase):
         #self.assertEqual(filter_movie,['Assassins','Original Sin'],'test less than condition, critic score')
         self.assertIn('original sin',filter_movie,'test less than condition, critic score')
         self.assertIn('assassins',filter_movie,'test less than condition, critic score')
-        #some in the lists, some not in the list
+        #test for movie not in the list
+        filter_movie=select_where_movie_is('movieName', self.ratingDb)
+        self.assertEqual(filter_movie,['not present'],'test movie not in the rating DB')
         
     #unit test for user questions:
     def testget_co_actors(self):
@@ -114,6 +119,9 @@ class TestMovies(unittest.TestCase):
         self.assertTrue('kevin bacon' in Co_actor, 'get_co_actors is not working properly *Kevin Bacon* not in list')
         self.assertTrue('jack nicholson' in Co_actor, 'get_co_actors is not working properly *Jack Nicholson* not in list')
         self.assertTrue('dustin hoffman' in Co_actor, 'get_co_actors is not working properly *Dustin Hoffman* not in list')
+        #test for actors not in db
+        Co_actor = get_co_actors('Actor', self.movieDb)
+        self.assertEqual(Co_actor,['not present'],'test actor not in the movie DB')
         
     def testget_common_movie(self):
         '''test user question function 2'''
@@ -123,7 +131,9 @@ class TestMovies(unittest.TestCase):
         self.assertTrue('mr & mrs smith' in Common_movies, 'Brad and Angelina acted in "Mr & Mrs Smith" together')
         Common_movies = get_common_movie('Kate Winslet', 'Leonardo Di Caprio', self.movieDb)
         self.assertEqual(set(['titanic','revolutionary road']), set(Common_movies), 'Kate and Leonardo acted in "Titanic" and "Revolutionary Road" together')
-
+        #test for actors not in database
+        Common_movies=get_common_movie('actor1', 'actor2', self.movieDb)
+        self.assertEqual(Common_movies,['not present'],'test actor not in the movie DB')
     def testcritics_darling(self):
         '''test user question function 3'''
         actors_high_average_rating = critics_darling(self.movieDb, self.ratingDb)
@@ -151,6 +161,12 @@ class TestMovies(unittest.TestCase):
         self.assertEqual(set(['tom hanks', 'meg ryan']), set(Common_actors), ' hanks and Meg acted in "Sleepless in Seattle" and "You\'ve Got Mail" together')
         Common_actors = get_common_actors('titanic', 'revolutionary road', self.movieDb)
         self.assertEqual(set(['kate winslet', 'leonardo di caprio']), set(Common_actors), 'Kate and Leonardo acted in "Titanic" and "Revolutionary Road" together')
+        Common_actors = get_common_actors('movie1', 'ben-hur', self.movieDb)
+        self.assertEqual(Common_actors,['movie1 not in the database'],'movie1 not in the database')
+        Common_actors = get_common_actors('crash', 'movie2', self.movieDb)
+        self.assertEqual(Common_actors,['movie2 not in the database'],'movie2 not in the database')
+        Common_actors = get_common_actors('movie1', 'movie2', self.movieDb)
+        self.assertEqual(Common_actors,['Neither of those two movies are in the database'],'Neither of those two movies are in the database')
         #self.assertTrue('Revolutionary Road' in Common_movies, 'Kate and Leonardo acted in "Revolutionary Road" together')
     
         

@@ -57,7 +57,6 @@ def delete_movie(movie, movie_Db, ratings_Db):
             movies_list.remove(movie)
 
 def select_where_actor_is(actorName, movie_Db):
-    #return ['not present']
     list_of_movies=[]
     actorName=actorName.lower().rstrip().lstrip()
     if actorName in movie_Db.keys():
@@ -71,16 +70,16 @@ def select_where_actor_is(actorName, movie_Db):
         return list_of_movies
 
 def select_where_movie_is(movieName, movie_Db):
-    #return ['not present']
     all_actors_list = movie_Db.keys()
     actors_list = []
     for actor in all_actors_list[0:]:
         if movieName.lower().rstrip().lstrip() in movie_Db[actor]:
             actors_list.append(actor)
+    if len(actors_list)==0:
+        actors_list.append('not present')
     return actors_list
 
 def select_where_rating_is(targeted_rating, comparison, is_critic, ratings_Db):
-    #return ['not present']
     movies_with_target = []
     all_movies_list = ratings_Db.keys()
     for movie in all_movies_list:
@@ -98,26 +97,42 @@ def select_where_rating_is(targeted_rating, comparison, is_critic, ratings_Db):
         if comparison == '>':
             if rating > targeted_rating:
                 movies_with_target.append(movie)
+    if len(movies_with_target)==0:
+        movies_with_target.append('not present')
     return movies_with_target
      
    
 #USER QUESTION!!!!!!!!!!
 
 def get_co_actors(actorName, moviedb):
+    #'not present' for actor not in db, no co-actors for actor do not have a co-actor
     co_actors = []
-    movies_acted = moviedb[actorName.lower().rstrip().lstrip()]
-    for movie in movies_acted:
-        for actor in moviedb.keys():
-            if movie in moviedb[actor] and actor != actorName:
-                co_actors.append(actor)
+    #i=0
+    actorName=actorName.lower().rstrip().lstrip()
+    if actorName in moviedb.keys():
+        movies_acted = moviedb[actorName]
+        #print movies_acted
+        for movie in movies_acted:
+            #i+=1
+            for actor in moviedb.keys():
+                if movie in moviedb[actor] and actor != actorName:
+                    co_actors.append(actor)
+                #elif movie not in moviedb[actor] and
+    else:
+        co_actors.append('not present')
     return co_actors
 
 def get_common_movie(actor1, actor2, moviedb):
     common_movies = []
-    movies_actor1_acted = moviedb[actor1.lower().rstrip().lstrip()]
-    for movie in movies_actor1_acted:
-        if movie in moviedb[actor2.lower().rstrip().lstrip()]:
-            common_movies.append(movie)
+    actor1=actor1.lower().rstrip().lstrip()
+    if actor1 in moviedb.keys():
+        movies_actor1_acted = moviedb[actor1]
+        print len(moviedb[actor1])
+        for movie in movies_actor1_acted:
+            if movie in moviedb[actor2.lower().rstrip().lstrip()]:
+                common_movies.append(movie)
+    if len(common_movies)==0:
+        common_movies.append('not present')
     return common_movies
 
 def critics_darling(movie_Db, ratings_Db):
@@ -190,11 +205,25 @@ def good_movies(ratings_Db):
 def get_common_actors(movie1, movie2, movies_Db):
     ''' Given a pair of movies, return a list of actors that acted in both'''
     actors_list=[]
-    actors_list1=select_where_movie_is(movie1.lower().rstrip().lstrip(), movies_Db)
-    actors_list2=select_where_movie_is(movie2.lower().rstrip().lstrip(), movies_Db)
-    for actors in actors_list1:
-        if actors in actors_list2:
-            actors_list.append(actors)
+    
+    movie1=movie1.lower().rstrip().lstrip()
+    movie2=movie2.lower().rstrip().lstrip()
+    actors_list1=select_where_movie_is(movie1, movies_Db)
+    actors_list2=select_where_movie_is(movie2, movies_Db)
+    print actors_list1
+    print actors_list2
+    error=['not present']
+    print actors_list1 == error
+    if actors_list1!=error and actors_list2!=error:
+        for actors in actors_list1:
+            if actors in actors_list2:
+                actors_list.append(actors)
+    elif actors_list1==error and actors_list2!=error:
+        actors_list.append('movie1 not in the database')
+    elif actors_list1!=error and actors_list2==error:
+        actors_list.append('movie2 not in the database')
+    else:
+        actors_list.append('Neither of those two movies are in the database')
     return actors_list
     #what if no common actors? return a message?
 
@@ -316,11 +345,17 @@ def test():
     ratingDb = create_ratings_DB('moviescores.csv')
     #delete_movie('movie', movieDb, ratingDb)
     #print good_movies(ratingDb)
-    print select_where_actor_is('Leon]\ardo Di Caprio', movieDb)
-    
+##    print select_where_actor_is('Leon]\ardo Di Caprio', movieDb)
+##    print select_where_movie_is('movieName', movieDb)
+##    print get_co_actors('actorName', movieDb)
+##    print get_co_actors('Jakie Chen', movieDb)
+    #the result will return lower case, we should convert it back to upper case
+    #print get_common_movie('actor1', 'actor2', movieDb)
+    #print get_common_actors('crash', 'ben-hur', movieDb)
+    print get_common_actors('actor1', 'ben-actor1', movieDb)
 if __name__ == '__main__':
-    test()
-##    main()
+    #test()
+    main()
 
 
 
