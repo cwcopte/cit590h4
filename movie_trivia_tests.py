@@ -38,7 +38,7 @@ class TestMovies(unittest.TestCase):
 
     def testdelete_movie(self):
         '''test utility function 3'''
-        delete_movie('The avengers',self.movieDb,self.ratingDb)
+        delete_movie('the avengers',self.movieDb,self.ratingDb)
         self.assertFalse('the avengers' in self.movieDb['jeremy renner'], 'failed to delete The Avengers from movieDb')
         self.assertFalse('the avengers' in self.ratingDb, 'failt to delete The Avengers from ratingDb')
         #test for movie not exist in DB
