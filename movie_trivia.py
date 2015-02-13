@@ -235,42 +235,41 @@ def get_bacon(actor, movieDb):
     for co_actor in co_actors:
         actor_list.append(co_actor)
     actor_list=set(actor_list)
+    #delete duplicate actors
     actor_list=list(actor_list)
+    #change to list that could be easily added
     co_actors_list=[]
     pre_actor_list=[]
     i=0
     if actor not in movieDb.keys():
         return -1
+    #for acotr not in the database
     if actor=='kevin bacon':
         return 0
-    #while len(actor_list)!=len(pre_actor_list):
+    #for kevin bacon
     while len(actor_list)!=len(pre_actor_list):
-        #caculate with the outcome, how can we get at first??
-        #what if the database changes?
+        #when the actor list is the same as previous one, the loop will stop
         i+=1
         if actor in co_actors:
             return i
-            #break
+            #return the bacon number when there is a connection
         else:
-            #print i,'i'
+            #loop until there is 
             for next_actor in co_actors:
                 pre_actor_list=co_actors_list
                 co_actors_next=get_co_actors(next_actor, movieDb)
                 for every_actor in co_actors_next:
                     co_actors_list.append(every_actor)
                     actor_list.append(every_actor)
-                #print co_actors_list
+                #keep adding actors who is related to Bacon
                 co_actors_list=set(co_actors_list)
                 co_actors_list=list(co_actors_list)
                 co_actors=co_actors_list
                 if len(actor_list)==len(pre_actor_list):
                     return 0
-                    #for actor not in the database
+                    #for actor who has no connection with Bacon
         actor_list=set(actor_list)
         actor_list=list(actor_list)
-        #print len(actor_list),'len'
-        #print actor_list
-    #return 0
 
        
             
@@ -357,6 +356,27 @@ def test():
     #print get_common_actors('crash', 'ben-hur', movieDb)
     print get_common_actors('actor1', 'ben-actor1', movieDb)
     print get_bacon('TOM HANKS',movieDb)
+    print toUpperList(['string list'])
+    print toUpperList('string list upi')
+
+def toUpperList(string_list):
+    '''convert a list item to capitalize'''
+    upper_word=[]
+    for string in string_list:
+        words=string.split()
+        print words
+        for word in words:
+            upper_word.append(word.capitalize())
+    return upper_word
+
+def toUpper(string):
+    upper_word=[]
+    words=string.split(' ')
+    print words
+    for word in words:
+        upper_word.append(word.capitalize())
+    return upper_word
+
 if __name__ == '__main__':
     test()
     #main()
