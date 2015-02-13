@@ -12,11 +12,9 @@ def create_actors_DB(actor_file):
         actorAndMovies = line.split(',')
         actor = actorAndMovies[0]
         movies = [x.lstrip().rstrip() for x in actorAndMovies[1:]]
-        #should we change this, so we can further edit and append?
         #movieInfo[actor] = set(movies)
         movieInfo[actor] = movies
-        #movieInfo[actor]=set([])
-        #movieInfo.get(actor).union(set(cleaned_movies))
+        #should we change this, so we can further edit and append?
     f.close()
     return movieInfo
 
@@ -129,47 +127,7 @@ on the comparison argument and the targeted rating argument'''
 ##    #return movie_with_target
 ##    return movies_with_target
     
-#
-
-
-def get_co_actors(actorName, moviedb):
-    co_actors = []
-    movies_acted = moviedb[actorName]
-    for movie in movies_acted:
-        for actor in moviedb.keys():
-            if movie in moviedb[actor] and actor != actorName:
-                co_actors.append(actor)
-    return co_actors
-
-def get_common_movie(actor1, actor2, moviedb):
-    common_movies = []
-    movies_actor1_acted = moviedb[actor1]
-    for movie in movies_actor1_acted:
-        if movie in moviedb[actor2]:
-            common_movies.append(movie)
-    return common_movies
-
-##def critics_darling(movie_Db, ratings_Db):
-##actor_and_rating = {}
-##actors_wid_hi_rating = []
-##highest_rating = 0
-##for actor in movie_Db.keys():
-##sum_of_rating = 0
-###should the average be float??
-##no_of_movies = 0
-##for movie in movie_Db[actor]:
-##if movie in ratings_Db.keys():
-##rating_tuple = ratings_Db[movie]
-##sum_of_rating += int(rating_tuple[0])
-##no_of_movies += 1
-##average_rating = sum_of_rating / no_of_movies
-##actor_and_rating[actor] = average_rating
-##if highest_rating < average_rating:
-##highest_rating = average_rating
-##for actor in actor_and_rating.keys():
-##if actor_and_rating[actor] == highest_rating:
-##actors_wid_hi_rating.append(actor)
-##return actors_wid_hi_rating
+        
    
 #USER QUESTION!!!!!!!!!!
 
@@ -235,44 +193,8 @@ def get_common_actors(movie1, movie2, movies_Db):
     return actors_list
     #what if no common actors? return a message?
 
-def get_bacon(actor, movieDb):
-    ''' Get an actor's Bacon number'''
-    actor_list=['Kevin Bacon']
-    co_actors=get_co_actors('Kevin Bacon', movieDb)
-    for co_actor in co_actors:
-        actor_list.append(co_actor)
-    actor_list=set(actor_list)
-    actor_list=list(actor_list)
-    co_actors_list=[]
-    i=0
-    #set? list?
-    #print len(set(movieDb.keys()))
-    #print len(actor_list)
-    #print len(movieDb)
-    #while len(actor_list)!=3:
-    while len(actor_list)!=63:
-        #caculate with the outcome, how can we get at first??
-        #what if the database changes?
-        i+=1
-        if actor in co_actors:
-            return i
-            #break
-        else:
-            #print i
-            for next_actor in co_actors:
-                co_actors_next=get_co_actors(next_actor, movieDb)
-                for every_actor in co_actors_next:
-                    co_actors_list.append(every_actor)
-                    actor_list.append(every_actor)
-                #print co_actors_list
-                co_actors_list=set(co_actors_list)
-                co_actors_list=list(co_actors_list)
-                co_actors=co_actors_list
-        actor_list=set(actor_list)
-        actor_list=list(actor_list)
-        #print len(actor_list),'len'
-        #print actor_list
-    return 0
+#def get_bacon(actor, movieDb)
+''' Get an actor's Bacon number'''
 
 def main():
     actor_DB = create_actors_DB('movies.txt')
@@ -283,7 +205,7 @@ def main():
 ##    print ratings_DB.keys()
 ##    print '\n'
 ##    print actor_DB['Humphrey Bogart']
-    #print ratings_DB['Rambo']
+    print ratings_DB['Rambo']
 ##    #name=select_where_movie_is('Mrs. Miniver', ratings_DB)
 ##    #print name
 ##    print ratings_DB['The Avengers']
@@ -296,23 +218,14 @@ def main():
 ##    
     #print len(ratings_DB)
     #good_movies(ratings_DB)
-    #audience_darling(actor_DB, ratings_DB)
-    
+    audience_darling(actor_DB, ratings_DB)
     #get_common_actors('The Philadelphia Story', 'Rear Window', actor_DB)
     #result=select_where_rating_is(65, '=', False, ratings_DB)
     #result=select_where_rating_is(99,'>',True,ratings_DB)
 ##    result=select_where_rating_is(28,'<',False,ratings_DB)
 ##    print result
 ##    print len(result)
-    print get_bacon('Tom Hanks', actor_DB),'tom'
-    print get_bacon('Meg Ryan', actor_DB),'meg'
-    print get_bacon('Denzel Washington', actor_DB),'Denzel'
-    print get_bacon('Angelina Jolie', actor_DB),'Angelina Jolie'
-    print get_bacon('Rita Moreno', actor_DB),'Rita Moreno'
-    #how to differentiate not exsit in this list, or refer but no connection?
-    #print get_common_movie('Kevin Bacon', 'Tom Hanks', actor_DB)
-    #print get_common_movie('Kevin Bacon', 'Tom', actor_DB)
-    #should return none, or do something
+    
 if __name__ == '__main__':
     main()
 
