@@ -169,7 +169,23 @@ class TestMovies(unittest.TestCase):
         self.assertEqual(Common_actors,['Neither of those two movies are in the database'],'Neither of those two movies are in the database')
         #self.assertTrue('Revolutionary Road' in Common_movies, 'Kate and Leonardo acted in "Revolutionary Road" together')
     
+    def testget_bacon(self):
+        '''test function to get bacon number for actors'''
+        bacon_number=get_bacon('kevin bacon', self.movieDb)
+        self.assertEqual(bacon_number,0,'test for Kevin Bacon fail')
+        bacon_number=get_bacon('Tom Hanks', self.movieDb)
+        self.assertEqual(bacon_number,1,'test for bacon_number=1 fail')
+        bacon_number=get_bacon('meg ryan', self.movieDb)
+        self.assertEqual(bacon_number,2,'test for bacon_number=2 fail')
+        bacon_number=get_bacon('Denzel Washington', self.movieDb)
+        self.assertEqual(bacon_number,3,'test for bacon_number=3 fail')
+        bacon_number=get_bacon('Rita Moreno', self.movieDb)
+        self.assertEqual(bacon_number,0,'test for no connection with Bacon fail')
+        bacon_number=get_bacon('Jackie Chen', self.movieDb)
+        self.assertEqual(bacon_number,-1,'test for actor not in the db fail')
+        #how to differentiate not exsit in this list, or refer but no connection?
         
+
 
 
         

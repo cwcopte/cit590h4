@@ -210,10 +210,10 @@ def get_common_actors(movie1, movie2, movies_Db):
     movie2=movie2.lower().rstrip().lstrip()
     actors_list1=select_where_movie_is(movie1, movies_Db)
     actors_list2=select_where_movie_is(movie2, movies_Db)
-    print actors_list1
-    print actors_list2
+##    print actors_list1
+##    print actors_list2
     error=['not present']
-    print actors_list1 == error
+##    print actors_list1 == error
     if actors_list1!=error and actors_list2!=error:
         for actors in actors_list1:
             if actors in actors_list2:
@@ -239,6 +239,8 @@ def get_bacon(actor, movieDb):
     co_actors_list=[]
     pre_actor_list=[]
     i=0
+    if actor not in movieDb.keys():
+        return -1
     if actor=='kevin bacon':
         return 0
     #while len(actor_list)!=len(pre_actor_list):
@@ -263,6 +265,7 @@ def get_bacon(actor, movieDb):
                 co_actors=co_actors_list
                 if len(actor_list)==len(pre_actor_list):
                     return 0
+                    #for actor not in the database
         actor_list=set(actor_list)
         actor_list=list(actor_list)
         #print len(actor_list),'len'
@@ -353,9 +356,10 @@ def test():
     #print get_common_movie('actor1', 'actor2', movieDb)
     #print get_common_actors('crash', 'ben-hur', movieDb)
     print get_common_actors('actor1', 'ben-actor1', movieDb)
+    print get_bacon('TOM HANKS',movieDb)
 if __name__ == '__main__':
-    #test()
-    main()
+    test()
+    #main()
 
 
 
