@@ -39,6 +39,7 @@ class TestMovies(unittest.TestCase):
     def testdelete_movie(self):
         '''test utility function 3'''
         delete_movie('the avengers',self.movieDb,self.ratingDb)
+        #THE AVEGERS
         self.assertFalse('the avengers' in self.movieDb['jeremy renner'], 'failed to delete The Avengers from movieDb')
         self.assertFalse('the avengers' in self.ratingDb, 'failt to delete The Avengers from ratingDb')
         #test for movie not exist in DB
@@ -52,6 +53,9 @@ class TestMovies(unittest.TestCase):
         self.assertTrue('the devil wears prada' in movies, 'Out of Africa is not in')
         self.assertTrue('the hours' in movies, 'Out of Africa is not in')
         self.assertFalse('mamma mia' in movies, 'Mamma Mia is in')
+        #test actor not in the DB
+        movies=select_where_actor_is('Actor',self.movieDb)
+        self.assertEqual(movies,['not present'],'test actor not in the DB')
     
     def testselect_where_movie_is(self):
         '''test utility function 5'''

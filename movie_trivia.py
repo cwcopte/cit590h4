@@ -57,9 +57,21 @@ def delete_movie(movie, movie_Db, ratings_Db):
             movies_list.remove(movie)
 
 def select_where_actor_is(actorName, movie_Db):
-    return movie_Db[actorName.lower().rstrip().lstrip()]
+    #return ['not present']
+    list_of_movies=[]
+    actorName=actorName.lower().rstrip().lstrip()
+    if actorName in movie_Db.keys():
+        return movie_Db[actorName]
+##        for actor_name in movie_Db.keys():
+##            if actor_name==actorName:
+##                for names in movie_Db[actor_name]:
+##                    list_of_movies.append(names)
+    else:
+        list_of_movies.append('not present')
+        return list_of_movies
 
 def select_where_movie_is(movieName, movie_Db):
+    #return ['not present']
     all_actors_list = movie_Db.keys()
     actors_list = []
     for actor in all_actors_list[0:]:
@@ -68,6 +80,7 @@ def select_where_movie_is(movieName, movie_Db):
     return actors_list
 
 def select_where_rating_is(targeted_rating, comparison, is_critic, ratings_Db):
+    #return ['not present']
     movies_with_target = []
     all_movies_list = ratings_Db.keys()
     for movie in all_movies_list:
@@ -303,7 +316,7 @@ def test():
     ratingDb = create_ratings_DB('moviescores.csv')
     #delete_movie('movie', movieDb, ratingDb)
     #print good_movies(ratingDb)
-    print select_where_actor_is('Leonardo Di Caprio', movieDb)
+    print select_where_actor_is('Leon]\ardo Di Caprio', movieDb)
     
 if __name__ == '__main__':
     test()
